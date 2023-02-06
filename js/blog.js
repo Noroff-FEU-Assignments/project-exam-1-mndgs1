@@ -11,12 +11,9 @@ async function getPostByID(url) {
         const response = await fetch(url);
         const post = await response.json();
 
-        console.log(post);
         renderPost(post);
     } catch {}
 }
-
-getPostByID(url + fetchParams());
 
 function renderPost(post) {
     const container = document.querySelector(".blog-container");
@@ -27,3 +24,5 @@ function renderPost(post) {
 
     container.innerHTML += post.content.rendered;
 }
+
+getPostByID(url + fetchParams());

@@ -26,5 +26,31 @@ function showSlides(n) {
     slides[slideIndex - 1].style.display = "block";
 }
 
-url.searchParams.set("per_page", 12);
-getPosts(url);
+async function renderCarousel() {
+    try {
+        url.searchParams.set("per_page", 12);
+        url.searchParams.set("page", 1);
+
+        const posts = await getPosts(url);
+
+        console.log(posts);
+        for (i = 0; i < posts.length; i++) {
+            console.log(i);
+            if (i % 3 === 0) {
+                const carousel = document.querySelector(".carousel");
+                const newSlide = document.createElement("div");
+                newSlide.classList.add("slide");
+
+                carousel.appendChild(newSlide);
+            }
+        }
+
+        const slides = document.querySelectorAll(".slide");
+        console.log(slides);
+        slides.forEach((slide) => {});
+        // const slides = document.querySelectorAll(".slide");
+        // console.log(slides);
+    } catch {}
+}
+
+renderCarousel();
