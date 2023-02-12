@@ -1,7 +1,14 @@
+"use strict";
+let pageNum = 1;
+let categories;
+
+const categoriesContainer = document.querySelector(".categories");
+
 const menuBars = document.querySelector(".bars");
 const menu = document.querySelector(".menu");
+const loader = document.querySelector(".loader");
 
-const url = new URL("https://mindb.no/life-of-mi/wp-json/wp/v2/posts/");
+const url = new URL("https://mindb.no");
 
 function menuToggle(elementsArray) {
     elementsArray.forEach((el) => {
@@ -19,116 +26,136 @@ menuBars.addEventListener("click", (e) => {
 });
 
 // functions
-async function getFeaturedImage(imgUrl) {
+function renderMessage(message, type, container) {
+    const messageEl = document.createElement("p");
+    messageEl.classList.add("message", type);
+    messageEl.innerHTML = message;
+    container.appendChild(messageEl);
+}
+
+async function getFeaturedImage(imgUrl, postId) {
     try {
         const response = await fetch(imgUrl);
         const data = await response.json();
 
-        const imageContainer = document.getElementById(data.post);
-        const img = imageContainer.querySelector("img");
+        const img = document.getElementById(postId).querySelector("img");
         img.src = data.source_url;
         img.alt = data.alt_text;
-    } catch {}
+    } catch (error) {
+        console.error(error);
+    }
 }
 
-// function renderPosts(posts, container) {
-//     const body = document.querySelector(container);
-//     posts.forEach((post) => {
-//         const blogCard = document.createElement("div");
-//         blogCard.classList.add("blog-card");
-//         blogCard.id = `${post.id}`;
-//         body.appendChild(blogCard);
+async function getPosts(url, pageNum, category) {
+    url.pathname = "/life-of-mi/wp-json/wp/v2/posts/";
+    url.searchParams.set("per_page", 12);
+    url.searchParams.set("page", pageNum);
 
-//         const link = document.createElement("a");
-//         link.href = "/blog.html?id=" + post.id;
-//         blogCard.appendChild(link);
+    if (category) {
+        url.searchParams.set("category", category);
+    }
 
-//         const imgContainer = document.createElement("div");
-//         imgContainer.classList.add("img-container");
-
-//         const img = document.createElement("img");
-
-//         if (!post.featured_media) {
-//             img.src = "https://mindb.no/life-of-mi/wp-content/uploads/2023/01/Placeholder-2.webp";
-//             img.alt = "Placeholder";
-//         } else {
-//             const imgUrl = "https://mindb.no/life-of-mi/wp-json/wp/v2/media/" + post.featured_media;
-//             getFeaturedImage(imgUrl);
-//         }
-
-//         link.appendChild(img);
-
-//         const heading = document.createElement("h2");
-//         heading.innerHTML = post.title.rendered;
-//         link.appendChild(heading);
-
-//         const text = post.excerpt.rendered;
-//         link.innerHTML += text;
-//     });
-// }
-
-// async function getPosts(url) {
-//     try {
-//         const response = await fetch(url);
-//         const posts = await response.json();
-
-//         renderPosts(posts, ".blogs__container");
-
-//         if (posts.length < 10) {
-//             moreBlogsBtn.style.display = "none";
-//             renderMessage("Begining of the blog", moreBlogsContainer, "information");
-//         }
-//     } catch {
-//         moreBlogsBtn.style.display = "none";
-//         renderMessage("Begining of the blog", moreBlogsContainer, "information");
-//     }
-// }
-
-function renderMessage(message, el, type) {
-    el.innerHTML = `<p class="message ${type}">${message}</p>`;
-}
-
-async function getPosts(url) {
     try {
         const response = await fetch(url);
-        const posts = await response.json();
-
-        return posts;
-    } catch {}
+        const json = response.json();
+        return json;
+    } catch (error) {
+        console.error(error);
+    }
 }
 
-function renderPosts(posts, container) {
+function renderPosts(posts, container, categories) {
     const body = document.querySelector(container);
-    posts.forEach((post) => {
-        const blogCard = document.createElement("div");
-        blogCard.classList.add("blog-card");
-        blogCard.id = `${post.id}`;
-        body.appendChild(blogCard);
+    posts.forEach((post) => createPostHTML(post, body, categories));
+}
 
-        const link = document.createElement("a");
-        link.href = "/blog.html?id=" + post.id;
-        blogCard.appendChild(link);
+function createPostHTML(post, body, categories) {
+    const blogCard = document.createElement("div");
+    blogCard.classList.add("blog-card");
+    blogCard.id = `${post.id}`;
+    body.appendChild(blogCard);
 
-        const imgContainer = document.createElement("div");
-        imgContainer.classList.add("img-container");
+    const link = document.createElement("a");
+    link.href = "/blog.html?id=" + post.id;
+    blogCard.appendChild(link);
 
-        const img = document.createElement("img");
+    const img = document.createElement("img");
+    link.appendChild(img);
 
-        if (!post.featured_media) {
-            img.src = "https://mindb.no/life-of-mi/wp-content/uploads/2023/01/Placeholder-2.webp";
-            img.alt = "Placeholder";
+    categories.forEach((category) => {
+        if (post.categories.includes(category.id)) {
+            const categoryEl = document.createElement("p");
+            categoryEl.classList.add("post__category");
+            categoryEl.innerHTML = category.name;
+
+            // console.log(`category: ${category.name}, name:${post.title.rendered}`);
+            if (category.name !== "Uncategorized") {
+                link.appendChild(categoryEl);
+            }
+        }
+    });
+
+    if (!post.featured_media) {
+        img.src = "https://mindb.no/life-of-mi/wp-content/uploads/2023/01/Placeholder-2.webp";
+        img.alt = "Placeholder";
+    } else {
+        const imgUrl = `https://mindb.no/life-of-mi/wp-json/wp/v2/media/${post.featured_media}`;
+        // console.log(imgUrl);
+        getFeaturedImage(imgUrl, post.id);
+    }
+
+    const heading = document.createElement("h3");
+    heading.innerHTML = post.title.rendered;
+    link.appendChild(heading);
+
+    link.innerHTML += post.excerpt.rendered;
+}
+
+async function getCategoriesFromAPI() {
+    url.pathname = "/life-of-mi/wp-json/wp/v2/categories/";
+    url.searchParams.delete("per_page");
+    url.searchParams.delete("page");
+    url.searchParams.delete("categories");
+
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+function createCategoriesHTML(categories, container) {
+    categories.forEach((category) => {
+        const categoryInput = document.createElement("input");
+        categoryInput.classList.add("category__radio");
+        categoryInput.setAttribute("type", "radio");
+        categoryInput.setAttribute("id", category.id);
+        categoryInput.setAttribute("value", category.name);
+        categoryInput.setAttribute("name", "categories");
+
+        const categoryLabel = document.createElement("label");
+        categoryLabel.classList.add("category__label");
+        categoryLabel.setAttribute("for", category.id);
+
+        categoryLabel.innerHTML = category.name;
+
+        if (category.name === "Uncategorized") {
+            categoryInput.checked = "true";
+            container.prepend(categoryLabel);
+            container.prepend(categoryInput);
+            categoryInput.classList.add("checked");
+            categoryLabel.innerHTML = "All";
         } else {
-            const imgUrl = "https://mindb.no/life-of-mi/wp-json/wp/v2/media/" + post.featured_media;
-            getFeaturedImage(imgUrl);
+            container.appendChild(categoryInput);
+            container.appendChild(categoryLabel);
         }
 
-        link.appendChild(img);
-
-        const heading = document.createElement("h2");
-        heading.innerHTML = post.title.rendered;
-        link.appendChild(heading);
-
-        const text = post.excerpt.rendered;
-        link.innerHTML += text;
+        addCategoryListeners(categoryInput);
     });
+}
+
+function addCategoryListeners(input) {
+    input.addEventListener("change", async (e) => {});
 }

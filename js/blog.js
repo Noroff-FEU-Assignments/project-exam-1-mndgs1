@@ -7,11 +7,15 @@ function fetchParams() {
 }
 
 async function getPostByID(url) {
+    url.pathname = "/life-of-mi/wp-json/wp/v2/posts/" + fetchParams();
+
     try {
         const response = await fetch(url);
         const post = await response.json();
 
         renderPost(post);
+        const titleEl = document.querySelector("title");
+        titleEl.innerHTML = post.title.rendered + "| Life of Mi";
     } catch {}
 }
 
@@ -23,6 +27,51 @@ function renderPost(post) {
     container.appendChild(headerContainer);
 
     container.innerHTML += post.content.rendered;
+
+    const images = container.querySelectorAll("img");
+    images.forEach((image) => {
+        const modal = document.querySelector("#modal");
+        const modalImage = document.querySelector("#modal-image");
+
+        if (image) {
+            image.addEventListener("click", function () {
+                modal.style.display = "block";
+                modalImage.src = image.src;
+            });
+        }
+
+        if (modal) {
+            modal.addEventListener("click", function (event) {
+                if (event.target === modal) {
+                    modal.style.display = "none";
+                }
+            });
+        }
+    });
+
+    modalEventListeners();
 }
 
-getPostByID(url + fetchParams());
+getPostByID(url);
+
+function modalEventListeners(imgClass) {
+    const image = document.querySelector(`".${imgClass}"`);
+    console.log(image);
+    const modal = document.querySelector("#modal");
+    const modalImage = document.querySelector("#modal-image");
+
+    if (image) {
+        image.addEventListener("click", function () {
+            modal.style.display = "block";
+            modalImage.src = image.src;
+        });
+    }
+
+    if (modal) {
+        modal.addEventListener("click", function (event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        });
+    }
+}

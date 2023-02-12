@@ -14,7 +14,7 @@
         <header>
             <div class="header-content">
                 <div class="header-items">
-                    <a href="/index.html" class="home-button"><img class="logo" src="/images/logo/png/logo-no-background.png" /></a>
+                    <a href="/index.html" class="home-button"><img class="logo" src="/images/logo/png/logo-no-background.png" alt="Brand logo" /></a>
                     <div class="bars not-active">
                         <span class="bar bar1"></span>
                         <span class="bar bar2"></span>
@@ -24,7 +24,7 @@
                 <nav class="menu not-active">
                     <ul class="options">
                         <li class="option selected"><a href="/index.html">Home</a></li>
-                        <li class="option"><a href="/blogs.html">Blogs</a></li>
+                        <li class="option"><a href="/blogs.html">Blog</a></li>
                         <li class="option"><a href="/contact.html">Contacts</a></li>
                         <li class="option"><a href="/about.html">About</a></li>
                     </ul>
@@ -32,15 +32,25 @@
             </div>
         </header>
         <main class="main-content">
-            <div class="carousel">
-                <div class="slide brown"></div>
-                <div class="slide red"></div>
-                <div class="slide green"></div>
-                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-                <a class="next" onclick="plusSlides(1)">&#10095;</a>
+            <div class="banner">
+                <h1>Life of Mi</h1>
+                <p>Laughing, learning, and growing through fatherhood, technology, and nature.</p>
             </div>
+            <h1>Latest Posts</h1>
+            <div class="categories__container">
+                <ul class="categories"></ul>
+            </div>
+            <div class="carousel">
+                <span class="loader"></span>
+            </div>
+            <button class="cta load-more">Load more posts</button>
         </main>
-        <footer></footer>
+        <footer>
+            <div class="footer__content">
+                <div class="footer__copyright">Copyright &copy; 2023 Mindaugas Bankauskas</div>
+                <div class="footer__socials"></div>
+            </div>
+        </footer>
         <script src="/js/scripts.js"></script>
         <script src="/js/index.js"></script>
     </body>

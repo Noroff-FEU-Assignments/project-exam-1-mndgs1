@@ -13,7 +13,7 @@
         <header>
             <div class="header-content">
                 <div class="header-items">
-                    <a href="/index.html" class="home-button"><img class="logo" src="/images/logo/png/logo-no-background.png" /></a>
+                    <a href="/index.html" class="home-button"><img class="logo" src="/images/logo/png/logo-no-background.png" alt="Brand logo" /></a>
                     <div class="bars not-active">
                         <span class="bar bar1"></span>
                         <span class="bar bar2"></span>
@@ -23,36 +23,84 @@
                 <nav class="menu not-active">
                     <ul class="options">
                         <li class="option"><a href="/index.html">Home</a></li>
-                        <li class="option"><a href="/blogs.html">Blogs</a></li>
+                        <li class="option"><a href="/blogs.html">Blog</a></li>
                         <li class="option selected"><a href="/contact.html">Contacts</a></li>
                         <li class="option"><a href="/about.html">About</a></li>
                     </ul>
                 </nav>
             </div>
         </header>
-        <main class="main-content">
-            <h1>Contact Me</h1>
-            <div class="input-box_container">
-                <div class="message success"></div>
-                <div class="input-box">
-                    <label>Full name *</label>
-                    <input type="text" id="Name" name="Name" placeholder="Full name" spellcheck="false" required="required" autocomplete="on" />
-                    <span class="message"></span>
+        <div class="banner">
+            <h1>Life of Mi</h1>
+            <p>Laughing, learning, and growing through fatherhood, technology, and nature.</p>
+        </div>
+        <main class="main-content column-2">
+            <form id="contact__form">
+                <h1>Message Us</h1>
+                <div class="input__container">
+                    <label for="name">Name:</label>
+                    <p class="input__suggestion">(Should be more than 5 characters)</p>
+                    <input type="text" id="name" name="name" placeholder="Name" required />
+                    <p class="input__message"></p>
                 </div>
-                <div class="input-box">
-                    <label>E-mail *</label>
-                    <input type="email" id="email" name="email" placeholder="name@example.com" required="required" spellcheck="false" autocomplete="on" />
-                    <span class="message"></span>
+                <div class="input__container">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Email" required />
+                    <p class="input__message"></p>
                 </div>
-                <div class="input-box">
-                    <label>Message *</label>
-                    <textarea type="message" id="contactMessage" name="contactMessage" placeholder="Type your message here..." required="required" spellcheck="false" autocomplete="off"></textarea>
-                    <span class="message"></span>
+                <div class="input__container">
+                    <label for="subject">Subject:</label>
+                    <p class="input__suggestion">(Should be more than 15 characters)</p>
+                    <input type="text" id="subject" name="subject" placeholder="Subject" required />
+                    <p class="input__message"></p>
                 </div>
-                <button class="cta reset-style submit">Send</button>
+                <div class="input__container">
+                    <label for="message">Message:</label>
+                    <p class="input__suggestion">(Should be more than 25 characters)</p>
+                    <textarea id="message" name="message" placeholder="Message" required></textarea>
+                    <p class="input__message"></p>
+                </div>
+                <button type="submit" class="cta submit">Send Message</button>
+            </form>
+            <div class="contact__information">
+                <h1>Contact Us</h1>
+                <div class="information__container">
+                    <div class="line">
+                        <div class="icon">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+                        <p class="bold">Address:</p>
+                        <p>Kloverstien 9, Grua</p>
+                    </div>
+                    <div class="line">
+                        <div class="icon">
+                            <i class="fa-solid fa-phone"></i>
+                        </div>
+                        <p>Phone: +4794215193</p>
+                    </div>
+
+                    <div class="line">
+                        <div class="icon">
+                            <i class="fa-solid fa-envelope"></i>
+                        </div>
+                        <p>E-mail: <a href="mailto:mindaugasbankauskas@gmail.com">mindaugasbankauskas@gmail.com</a></p>
+                    </div>
+                    <div class="line">
+                        <div class="icon">
+                            <i class="fa-solid fa-globe"></i>
+                        </div>
+                        <p>Website: <a href="mindb.no/">mindb.no</a></p>
+                    </div>
+                </div>
             </div>
         </main>
-        <footer></footer>
+        <footer>
+            <div class="footer__content">
+                <div class="footer__copyright">Copyright &copy; 2023 Mindaugas Bankauskas</div>
+                <div class="footer__socials"></div>
+            </div>
+        </footer>
         <script src="/js/scripts.js"></script>
+        <script src="/js/contact.js"></script>
     </body>
 </html>
