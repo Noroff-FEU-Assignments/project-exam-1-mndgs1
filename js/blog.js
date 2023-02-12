@@ -14,8 +14,6 @@ async function getPostByID(url) {
         const post = await response.json();
 
         renderPost(post);
-        const titleEl = document.querySelector("title");
-        titleEl.innerHTML = post.title.rendered + "| Life of Mi";
     } catch {}
 }
 
@@ -25,6 +23,8 @@ function renderPost(post) {
     const headerContainer = document.createElement("h1");
     headerContainer.innerHTML = post.title.rendered;
     container.appendChild(headerContainer);
+
+    document.title = post.title.rendered + "| Life of Mi";
 
     container.innerHTML += post.content.rendered;
 
@@ -48,8 +48,6 @@ function renderPost(post) {
             });
         }
     });
-
-    modalEventListeners();
 }
 
 getPostByID(url);
