@@ -51,6 +51,36 @@
             <div id="modal" class="modal">
                 <img id="modal-image" src="" alt="" />
             </div>
+            <div class="comments">
+                <h2 class="comments-title">Comments</h2>
+                <ul class="comment-list"></ul>
+                <div class="anchor-container comments-anchor">
+                    <a class="more-comments">More Comments &#187; </a>
+                </div>
+                <form id="comment__form">
+                    <div class="input__container">
+                        <label for="name">Name:</label>
+                        <p class="input__suggestion">(Should be more than 5 characters)</p>
+                        <input type="text" id="name" name="name" placeholder="Name" required />
+                        <p class="input__message"></p>
+                    </div>
+                    <div class="input__container">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" placeholder="Email" required />
+                        <p class="input__message"></p>
+                    </div>
+                    <div class="input__container">
+                        <label for="message">Comment:</label>
+                        <p class="input__suggestion">(Should be more than 5 characters)</p>
+                        <textarea id="comment" name="comment" placeholder="Your comment..." required></textarea>
+                        <p class="input__message"></p>
+                    </div>
+                    <button type="submit" class="cta submit-comment">Write a Comment</button>
+                </form>
+                <div class="anchor-container">
+                    <a href="/blogs.html">Back to Blog &#187; </a>
+                </div>
+            </div>
         </main>
         <footer>
             <div class="footer__content">
@@ -59,6 +89,6 @@
             </div>
         </footer>
         <script src="/js/scripts.js"></script>
-        <script src="/js/blog.js"></script>
+        <script type="module" src="/js/blog.js"></script>
     </body>
 </html>

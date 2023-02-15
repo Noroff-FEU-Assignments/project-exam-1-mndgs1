@@ -1,31 +1,37 @@
+import { getPosts, getCategoriesFromAPI } from "./components/apiFunctions.js";
+import { createPostHTML, createCategoriesHTML, createLoaderHTML } from "./components/createHtmlFunctions.js";
+
 const carousel = document.querySelector(".carousel");
 const loadMoreButton = document.querySelector(".load-more");
+const categoriesContainer = document.querySelector(".categories");
 
-loadMoreButton.addEventListener("click", (e) => {
-    const slides = document.querySelectorAll(".slide");
-});
+const categories = await getCategoriesFromAPI();
 
-async function renderCarousel(pageNum) {
+function createCarouselHTML(container, posts, categories) {
+    container.innerHTML = "";
+
+    let slide, slidePosts;
+
+    for (let i = 0; i < posts.length; i += 3) {
+        slide = document.createElement("div");
+        slide.classList.add("slide");
+        container.appendChild(slide);
+
+        slidePosts = posts.slice(i, i + 3);
+        slidePosts.forEach((post) => {
+            createPostHTML(post, slide, categories);
+        });
+    }
+}
+
+async function renderCarousel(url, page, category) {
     try {
-        const posts = await getPosts(url, pageNum);
+        const posts = await getPosts(url, page, category);
 
-        const categories = await getCategoriesFromAPI();
+        createCarouselHTML(carousel, posts, categories);
+        createSlideButtons(carousel, "&#10094;", "prev", -1);
+        createSlideButtons(carousel, "&#10095;", "next", 1);
 
-        const categoriesContainer = document.querySelector(".categories");
-        createCategoriesHTML(categories, categoriesContainer);
-
-        let slide, slidePosts;
-
-        for (let i = 0; i < posts.length; i += 3) {
-            slide = document.createElement("div");
-            slide.classList.add("slide");
-            carousel.appendChild(slide);
-
-            slidePosts = posts.slice(i, i + 3);
-            slidePosts.forEach((post) => {
-                createPostHTML(post, slide, categories);
-            });
-        }
         showSlides(slideIndex);
         loader.style.display = "none";
     } catch (error) {
@@ -33,9 +39,10 @@ async function renderCarousel(pageNum) {
     }
 }
 
-renderCarousel(pageNum);
-createSlideButtons(carousel, "&#10094;", "prev", -1);
-createSlideButtons(carousel, "&#10095;", "next", 1);
+createCategoriesHTML(categories, categoriesContainer);
+createLoaderHTML(carousel);
+
+renderCarousel(url, pageNum, "1");
 
 function createSlideButtons(container, html, type, slideArg) {
     const slidePrev = document.createElement("a");
@@ -74,3 +81,17 @@ function showSlides(n) {
     }
     slides[slideIndex - 1].style.display = "grid";
 }
+
+const categoryInput = document.querySelectorAll(".category__radio");
+
+categoryInput.forEach((input) => {
+    input.addEventListener("change", (e) => {
+        carousel.innerHTML = "";
+        createLoaderHTML(carousel);
+        pageNum = 1;
+        renderCarousel(url, pageNum, input.id);
+    });
+});
+
+// set banner by category
+async function setBannerByCategory() {}

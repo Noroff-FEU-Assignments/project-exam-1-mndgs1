@@ -10,6 +10,10 @@
     /* color: var(--grey-color); */
 }
 
+p {
+    padding: 4px 0px;
+}
+
 h1,
 h2,
 h3,
@@ -35,10 +39,6 @@ h1 {
     font-size: 1.2em;
 }
 
-.categories {
-    display: none;
-}
-
 .prev,
 .next {
     display: none;
@@ -46,7 +46,7 @@ h1 {
 
 .carousel .blog-card {
     margin-bottom: 20px;
-    border-bottom: 1px solid var(--grey-color);
+    min-height: 300px;
 }
 
 .cta {
@@ -71,8 +71,91 @@ h1 {
     margin: 30px auto;
 }
 
+.more-comments {
+    visibility: hidden;
+}
+
+.anchor-container {
+    display: flex;
+    justify-content: flex-end;
+}
+
+a,
+button,
+.wp-block-image,
+.category__label {
+    cursor: pointer;
+}
+
+.header__wrapper-container,
+footer,
+header {
+    background-image: url(https://mindb.no/life-of-mi/wp-content/uploads/2023/02/banner-scaled.jpg);
+    background-repeat: no-repeat;
+    background-position: left top;
+    background-size: cover;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.options {
+    background-color: var(--green-color);
+}
 /* ---------------------------- Menu ---------------------------- */
 
+/* ---------Comments------------- */
+.comments {
+    margin-top: 50px;
+}
+
+.comments-title {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.comment-list {
+    list-style: none;
+    padding: 0;
+}
+
+.comment {
+    margin-bottom: 20px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.comment-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.comment-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.comment-meta {
+    display: flex;
+    flex-direction: column;
+}
+
+.comment-author {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.comment-date {
+    font-size: 14px;
+    color: #999;
+}
+
+.comment-body {
+    font-size: 16px;
+}
 /* ------------Home------------ */
 
 .banner {
@@ -85,6 +168,11 @@ h1 {
 }
 
 /* ----------- Blog ----------- */
+
+blockquote p {
+    padding-left: 10px;
+    border-left: 2px solid var(--lightgrey-color);
+}
 
 figure img {
     width: 100%;
@@ -101,9 +189,10 @@ ul {
 .blog-container {
     max-width: 720px;
     margin: auto;
+    min-height: 600px;
 }
 .blog-container > * {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .blog-container > h2 {
@@ -129,6 +218,7 @@ ul {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
 /* ----------- Bars ----------- */
 .bars {
     display: flex;
@@ -164,7 +254,6 @@ ul {
 .menu {
     position: fixed;
     width: 100%;
-    background: var(--green-color);
     padding: 20px 0px;
     z-index: 1000;
 }
@@ -241,24 +330,12 @@ ul {
     display: flex;
 }
 
-header,
-footer {
-    background: var(--green-color);
-    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
-}
-
+/* -------- Blogs -------- */
 a {
     color: var(--grey-color); /* Override the default color */
     text-decoration: none; /* Remove the underline */
 }
 
-a div {
-    transition: transform 0.3s ease-in-out;
-}
-
-a div:hover {
-    transform: scale(1.1);
-}
 a:hover {
     text-decoration: underline;
 }
@@ -273,20 +350,59 @@ a:hover {
     object-fit: cover;
 }
 
+.blog-card p {
+    padding: 2px 0px;
+}
+
+.blog-card {
+    transition: transform 0.3s;
+    margin-bottom: 30px;
+    border-bottom: 1px solid var(--lightgrey-color);
+}
+
+.blog-card:hover {
+    transform: scale(1.05);
+}
+
+.blog-card:hover h3 {
+    text-decoration: underline;
+}
+
+.blog-card a:hover {
+    text-decoration: none;
+}
+
 .blogs__container {
     position: relative;
 }
+
+.category__radio {
+    display: none;
+}
+
+.category__radio:checked + .category__label {
+    text-decoration: underline;
+}
+
+.categories {
+    display: flex;
+    gap: 20px;
+}
+
+.categories__container {
+    padding-bottom: 10px;
+}
+
 /* ------ Contact -------- */
 .input__container {
     margin: 20px 0px;
 }
 
+.contacts__main {
+    width: 100%;
+}
 .contact__information > p {
     margin: 20px 0px;
-}
-
-.input__container > * {
-    display: block;
 }
 
 .input__suggestion,
@@ -385,9 +501,16 @@ i {
 
 /* ---------- media --------- - */
 @media (min-width: 660px) {
+    figure img {
+        height: 600px;
+    }
+
+    .options {
+        background-color: unset;
+    }
+
     .banner {
-        padding-top: 80px;
-        padding-bottom: 180px;
+        max-height: 390px;
     }
 
     h1 {
@@ -412,6 +535,7 @@ i {
         display: flex;
         justify-content: space-between;
     }
+
     .menu,
     .menu.not-active,
     .menu.active {
@@ -438,14 +562,17 @@ i {
         text-align: center;
     }
 
+    .blog-card {
+        margin-bottom: 0px;
+        border-bottom: none;
+    }
+
     /* ------- carousel ------- */
 
     .carousel {
-        overflow: hidden;
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 400px;
         box-sizing: border-box;
         position: relative;
     }
@@ -502,11 +629,5 @@ i {
 @media (min-width: 920px) {
     .blogs__container {
         grid-template-columns: 1fr 1fr 1fr;
-    }
-
-    /* contact */
-    .column-2 {
-        display: grid;
-        grid-template-columns: 1.5fr 1fr;
     }
 }

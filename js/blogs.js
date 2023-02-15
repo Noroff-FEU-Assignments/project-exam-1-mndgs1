@@ -1,29 +1,55 @@
+import { getPosts, getCategoriesFromAPI, getFeaturedImageAPI } from "./components/apiFunctions.js";
+import { createPostHTML, createCategoriesHTML, createLoaderHTML } from "./components/createHtmlFunctions.js";
+
 const moreBlogsBtn = document.querySelector(".load-more");
 const blogsContainer = document.querySelector(".blogs__container");
 
+const categories = await getCategoriesFromAPI();
+
 moreBlogsBtn.addEventListener("click", (e) => {
     pageNum += 1;
-    renderBlogsHtml(url, pageNum, 1);
+    renderBlogsHtml(url, pageNum, "1");
 });
 
-async function renderBlogsHtml(url, page, categories) {
+// create blogs HTML
+async function renderBlogsHtml(url, page, category) {
     try {
-        const posts = await getPosts(url, page, 1);
+        const posts = await getPosts(url, page, category);
 
-        categories = await getCategoriesFromAPI();
-
-        loader.style.display = "none";
+        const container = document.querySelector(".blogs__container");
         blogsContainer.style.display = "grid";
         moreBlogsBtn.style.display = "block";
-        createCategoriesHTML(categories, categoriesContainer);
 
-        renderPosts(posts, ".blogs__container", categories);
+        const loader = document.querySelector(".loader");
+        if (loader) {
+            loader.style.display = "none";
+        }
+
+        posts.forEach((post) => {
+            createPostHTML(post, container, categories);
+        });
 
         if (posts.length < 12) {
             moreBlogsBtn.style.display = "none";
         }
-    } catch {
+    } catch (error) {
         moreBlogsBtn.style.display = "none";
+        console.error(error);
     }
 }
-renderBlogsHtml(url, pageNum, 1);
+
+createCategoriesHTML(categories, categoriesContainer);
+
+createLoaderHTML(blogsContainer);
+renderBlogsHtml(url, pageNum, "1");
+
+const categoryInput = document.querySelectorAll(".category__radio");
+
+categoryInput.forEach((input) => {
+    input.addEventListener("change", (e) => {
+        blogsContainer.innerHTML = "";
+        createLoaderHTML(blogsContainer);
+        pageNum = 1;
+        renderBlogsHtml(url, pageNum, input.id);
+    });
+});
