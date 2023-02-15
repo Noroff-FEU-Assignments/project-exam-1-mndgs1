@@ -4,6 +4,7 @@ import { createPostHTML, createCategoriesHTML, createLoaderHTML } from "./compon
 const carousel = document.querySelector(".carousel");
 const loadMoreButton = document.querySelector(".load-more");
 const categoriesContainer = document.querySelector(".categories");
+const slides = document.getElementsByClassName("slide");
 
 const categories = await getCategoriesFromAPI();
 
@@ -67,7 +68,6 @@ function currentSlide(n) {
 
 function showSlides(n) {
     let i;
-    const slides = document.getElementsByClassName("slide");
 
     if (n > slides.length) {
         slideIndex = 1;
@@ -86,6 +86,7 @@ const categoryInput = document.querySelectorAll(".category__radio");
 
 categoryInput.forEach((input) => {
     input.addEventListener("change", (e) => {
+        e.preventDefault();
         carousel.innerHTML = "";
         createLoaderHTML(carousel);
         pageNum = 1;
@@ -93,5 +94,18 @@ categoryInput.forEach((input) => {
     });
 });
 
-// set banner by category
-async function setBannerByCategory() {}
+loadMoreButton.addEventListener("click", (e) => {
+    for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = "block";
+    }
+
+    loadMoreButton.style.display = "none";
+
+    const anchorEl = document.createElement("a");
+    anchorEl.innerText = "All Posts";
+    anchorEl.href = "/blogs.html";
+    anchorEl.classList.add("cta");
+
+    const buttonContainer = document.querySelector(".button__container");
+    buttonContainer.appendChild(anchorEl);
+});

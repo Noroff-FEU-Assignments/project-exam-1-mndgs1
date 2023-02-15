@@ -28,7 +28,11 @@ body {
 }
 
 h1 {
-    font-size: 2.2em;
+    font-size: 2.8em;
+}
+
+h3 {
+    font-size: 1.3em;
 }
 
 .banner h1 {
@@ -50,16 +54,18 @@ h1 {
 }
 
 .cta {
-    background-color: var(--brightgreen-color);
+    background-color: var(--orange-color);
     padding: 8px 30px;
     font-size: 1.2em;
     color: #fff;
-    border: 3px solid var(--brightgreen-color);
+    border: 3px solid var(--orange-color);
+    border-radius: 4px;
 }
 
 .cta:hover {
     background-color: #fff;
-    color: var(--grey-color);
+    color: var(--orange-color);
+    text-decoration: none;
 }
 
 .error {
@@ -67,8 +73,8 @@ h1 {
 }
 
 .load-more {
-    display: none;
-    margin: 30px auto;
+    display: block;
+    margin: 0px auto 20px;
 }
 
 .more-comments {
@@ -87,18 +93,28 @@ button,
     cursor: pointer;
 }
 
+.header__wrapper-container {
+    height: 600px;
+    background-position: center;
+}
+
 .header__wrapper-container,
+header,
 footer,
-header {
-    background-image: url(https://mindb.no/life-of-mi/wp-content/uploads/2023/02/banner-scaled.jpg);
+.options {
+    background-image: url(https://mindb.no/life-of-mi/wp-content/uploads/2023/02/newBanner.jpg);
     background-repeat: no-repeat;
-    background-position: left top;
     background-size: cover;
     box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
 }
 
-.options {
-    background-color: var(--green-color);
+footer,
+header {
+    background-position: top;
+}
+
+.button__container {
+    text-align: center;
 }
 /* ---------------------------- Menu ---------------------------- */
 
@@ -161,10 +177,11 @@ header {
 .banner {
     padding-top: 60px;
     padding-bottom: 140px;
+    text-align: center;
 }
 
-.banner > * {
-    text-align: center;
+.banner p {
+    margin-bottom: 60px;
 }
 
 /* ----------- Blog ----------- */
@@ -224,6 +241,7 @@ ul {
     display: flex;
     flex-direction: column;
     gap: 6px;
+    z-index: 1001;
 }
 
 .bar {
@@ -254,8 +272,9 @@ ul {
 .menu {
     position: fixed;
     width: 100%;
-    padding: 20px 0px;
-    z-index: 1000;
+    top: 0;
+    left: 0;
+    z-index: 1;
 }
 
 .menu.not-active {
@@ -268,9 +287,18 @@ ul {
     animation: appear 0.15s ease-in-out forwards;
 }
 
+.menu.loaded {
+    animation: none;
+    display: none;
+}
+
 .options {
-    list-style-type: none;
-    padding: 0px 20px;
+    height: 100vh;
+    background-size: auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .options li {
@@ -361,7 +389,7 @@ a:hover {
 }
 
 .blog-card:hover {
-    transform: scale(1.05);
+    transform: scale(1.02);
 }
 
 .blog-card:hover h3 {
@@ -386,7 +414,7 @@ a:hover {
 
 .categories {
     display: flex;
-    gap: 20px;
+    gap: 10px;
 }
 
 .categories__container {
@@ -394,13 +422,14 @@ a:hover {
 }
 
 /* ------ Contact -------- */
+.contacts__main {
+    width: 100%;
+}
+
 .input__container {
     margin: 20px 0px;
 }
 
-.contacts__main {
-    width: 100%;
-}
 .contact__information > p {
     margin: 20px 0px;
 }
@@ -426,20 +455,17 @@ a:hover {
 }
 
 #contact__form {
-    background-color: var(--sand-color);
-    padding: 40px;
+    margin-bottom: 40px;
 }
 
 .contact__information {
-    background-color: var(--green-color);
-    padding: 40px;
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
 }
 
 .icon {
-    background-color: var(--green-color);
+    background-color: var(--lightblue-color);
     border-radius: 50%;
     display: inline-flex;
     align-items: center;
@@ -452,6 +478,7 @@ a:hover {
     padding: 4px 0px;
     display: flex;
     align-items: center;
+    gap: 10px;
 }
 
 i {
@@ -501,12 +528,29 @@ i {
 
 /* ---------- media --------- - */
 @media (min-width: 660px) {
+    .menu.loaded {
+        display: block;
+    }
+
+    .load-more {
+        display: none;
+        margin: 20px auto;
+    }
+    .categories {
+        gap: 20px;
+    }
+
     figure img {
         height: 600px;
     }
 
     .options {
-        background-color: unset;
+        height: unset;
+        background-image: unset;
+        width: unset;
+        flex-direction: row;
+        justify-content: center;
+        box-shadow: unset;
     }
 
     .banner {
@@ -543,12 +587,10 @@ i {
         width: auto;
         height: auto;
         padding: 0px;
-        z-index: 1000;
         animation: none;
     }
 
     .options {
-        display: flex;
         flex-direction: row;
     }
 
@@ -629,5 +671,11 @@ i {
 @media (min-width: 920px) {
     .blogs__container {
         grid-template-columns: 1fr 1fr 1fr;
+    }
+    .contacts__main {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr;
+        align-items: stretch;
+        gap: 100px;
     }
 }

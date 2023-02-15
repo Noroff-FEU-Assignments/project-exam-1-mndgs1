@@ -21,7 +21,26 @@ submit.addEventListener("click", (e) => {
     const allErrors = document.querySelectorAll(".error");
 
     if (allErrors.length === 0) {
+        const data = {
+            name: null,
+            email: null,
+            subject: null,
+            message: null,
+        };
+
         allInputs.forEach((input) => {
+            if (input.id === "name") {
+                data.name = input.value;
+            }
+            if (input.id === "email") {
+                data.email = input.value;
+            }
+            if (input.id === "subject") {
+                data.subject = input.value;
+            }
+            if (input.id === "message") {
+                data.message = input.value;
+            }
             input.value = "";
         });
         renderMessage("Your message was sent!", "success", contactForm);

@@ -53,28 +53,3 @@ export async function getFeaturedImageAPI(post) {
 }
 
 // post a comment to API
-async function postComment() {
-    try {
-        const response = await fetch("https://your-site.com/wp-json/wp/v2/comments", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                post: 123,
-                author_name: "John Doe",
-                author_email: "john.doe@example.com",
-                content: "This is a comment.",
-            }),
-        });
-
-        if (!response.ok) {
-            throw new Error("Network response was not ok");
-        }
-
-        const data = await response.json();
-        console.log(data);
-    } catch (error) {
-        console.error("There was a problem with the fetch operation:", error);
-    }
-}

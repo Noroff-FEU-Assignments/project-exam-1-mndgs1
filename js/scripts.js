@@ -24,6 +24,11 @@ async function getFeaturedImage(imgUrl, postId) {
 }
 
 function menuToggle(elementsArray) {
+    const loadedEl = document.querySelector(".loaded");
+    if (loadedEl) {
+        loadedEl.classList.remove("loaded");
+    }
+
     elementsArray.forEach((el) => {
         if (el.classList.contains("not-active")) {
             el.classList.replace("not-active", "active");
@@ -54,11 +59,3 @@ function formatDate(dateArg) {
     const formattedDate = date.toLocaleDateString() + ", " + timeAltered;
     return formattedDate;
 }
-
-// add wrapper
-
-const radioButtons = document.querySelectorAll(".radio__input");
-
-radioButtons.forEach((input) => {
-    input.addEventListener("change", (e) => {});
-});

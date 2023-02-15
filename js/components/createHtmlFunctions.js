@@ -65,7 +65,6 @@ export function createCategoriesHTML(categories, container) {
 
         if (category.name === "Uncategorized") {
             categoryInput.checked = "true";
-            categoryInput.classList.add("checked");
             categoryLabel.innerHTML = "All";
             container.prepend(listItem);
         } else {
