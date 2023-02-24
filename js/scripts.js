@@ -8,7 +8,23 @@ const menuBars = document.querySelector(".bars");
 const menu = document.querySelector(".menu");
 const loader = document.querySelector(".loader");
 
+<<<<<<< Updated upstream
 const url = new URL("https://mindb.no");
+=======
+// get Featured image from API
+async function getFeaturedImage(imgUrl, postId) {
+    try {
+        const response = await fetch(imgUrl);
+        const data = await response.json();
+
+        const img = document.getElementById(postId).querySelector("img");
+        img.src = data.source_url;
+        img.alt = data.alt_text;
+    } catch (error) {
+        console.error(error);
+    }
+}
+>>>>>>> Stashed changes
 
 function menuToggle(elementsArray) {
     elementsArray.forEach((el) => {

@@ -1,3 +1,9 @@
+<<<<<<< Updated upstream
+=======
+import { getPosts, getCategoriesFromAPI } from "./api/apiFunctions.js";
+import { createPostHTML, createCategoriesHTML, createLoaderHTML } from "./components/createHtmlFunctions.js";
+
+>>>>>>> Stashed changes
 const carousel = document.querySelector(".carousel");
 const loadMoreButton = document.querySelector(".load-more");
 

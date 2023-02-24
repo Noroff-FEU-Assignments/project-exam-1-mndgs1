@@ -1,3 +1,14 @@
+<<<<<<< Updated upstream
+=======
+import { validateInput, addEventListenersForm } from "./components/formValidation/inputValidation.js";
+
+const allInputs = document.querySelectorAll("#comment__form input, #comment__form textarea");
+const submit = document.querySelector(".submit-comment");
+const contactForm = document.getElementById("comment__form");
+const id = fetchParams();
+const moreComments = document.querySelector(".more-comments");
+
+>>>>>>> Stashed changes
 // Fetching id
 function fetchParams() {
     const queryString = document.location.search;

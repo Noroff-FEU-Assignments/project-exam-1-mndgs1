@@ -1,3 +1,8 @@
+<<<<<<< Updated upstream
+=======
+import { validateInput, addEventListenersForm } from "./components/formValidation/inputValidation.js";
+
+>>>>>>> Stashed changes
 const allInputs = document.querySelectorAll("#contact__form input, #contact__form textarea");
 const submit = document.querySelector(".submit");
 const contactForm = document.getElementById("contact__form");
