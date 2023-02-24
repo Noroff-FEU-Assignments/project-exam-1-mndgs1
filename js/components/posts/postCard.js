@@ -1,6 +1,7 @@
 import formatDate from "../../utilities/formatDate.js";
 import { categories } from "../categories/categoriesList.js";
 
+// creates a post card element
 export default function createPostElement(post) {
     const blogCard = document.createElement("div");
     blogCard.classList.add("blog-card");

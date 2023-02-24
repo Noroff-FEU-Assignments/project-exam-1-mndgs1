@@ -1,27 +1,30 @@
-import displayMessage from "../common/displayMessage.js";
+import renderMessage from "../common/renderMessage.js";
 import { getPosts } from "../../api/posts/index.js";
 import createPostElement from "./postCard.js";
 let slideIndex = 1;
 
+// posts carousel to the page
 export default async function postCarousel(category = "", container = ".carousel") {
     const { data, error } = await getPosts(category);
 
     if (error) {
-        return displayMessage(error, ".carousel", "error");
+        return renderMessage(error, "error", ".carousel");
     }
     slideIndex = 1;
     displayCarousel(data, container);
 }
 
+// displays carousel, adds load more button if needed, checks if there are any posts
 function displayCarousel(posts, container) {
     if (!Array.isArray(posts) || posts.length === 0) {
-        return displayMessage("There are no posts to display", ".carousel", "warning");
+        return renderMessage("There are no posts to display", "warning", ".carousel");
     }
 
     createCarousel(posts, container);
     loadPostsButton();
 }
 
+// creates carousel element
 function createCarousel(posts, container) {
     const parent = document.querySelector(container);
     parent.innerHTML = "";
@@ -30,6 +33,7 @@ function createCarousel(posts, container) {
     createSlides(postElements, parent);
 }
 
+// creates slide elements
 function createSlides(posts, container) {
     let slide, slidePosts;
 
@@ -56,6 +60,7 @@ function createSlides(posts, container) {
     currentSlide(slideIndex);
 }
 
+// creates slide buttons
 function createSlideButtons(container, html, type, slideArg) {
     const slidePrev = document.createElement("a");
     slidePrev.classList.add("carousel__buttons");
@@ -67,6 +72,7 @@ function createSlideButtons(container, html, type, slideArg) {
     container.appendChild(slidePrev);
 }
 
+// slides index tracker functions
 function plusSlides(n) {
     showSlides((slideIndex += n));
 }
@@ -93,6 +99,7 @@ function showSlides(n) {
     slides[slideIndex - 1].style.display = "grid";
 }
 
+// creates a load more posts button if needed, replaces to an anchor to blogs if after first page of posts is loaded
 function loadPostsButton() {
     const slides = document.querySelectorAll(".slide");
     if (slides.length > 1) {

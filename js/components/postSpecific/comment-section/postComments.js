@@ -1,26 +1,29 @@
 import { getComments } from "../../../api/comments/read.js";
 import fetchParams from "../../../utilities/fetchParams.js";
 import formatDate from "../../../utilities/formatDate.js";
-import displayMessage from "../../common/displayMessage.js";
+import renderMessage from "../../common/renderMessage.js";
 
+// posts comments to the page
 export default async function postComments(id = fetchParams(), container = ".comment-list", page) {
     const { data, error } = await getComments(id, page);
 
     if (error) {
-        return displayMessage(error, ".comment-list", "error");
+        return renderMessage(error, "error", ".comment-list");
     }
 
     displayComments(data, container);
 }
 
+// displays comments if there are any, if not adds a message
 function displayComments(comments, container) {
     if (!Array.isArray(comments) || comments.length === 0) {
-        return displayMessage("Be the first one to comment!", ".comment-list", "warning");
+        return renderMessage("Be the first one to comment!", "warning", ".comment-list");
     }
 
     createCommentsList(comments, container);
 }
 
+// creates a list of comments shows first 3 if there are more adds a button to view first 12
 function createCommentsList(comments, container) {
     const list = document.querySelector(container);
     list.innerHTML = "";
@@ -48,6 +51,7 @@ function createCommentsList(comments, container) {
     }
 }
 
+// creates comment element
 function createCommentElement(comment) {
     const commentEl = document.createElement("li");
     commentEl.classList.add("comment");
@@ -68,5 +72,3 @@ function createCommentElement(comment) {
     commentEl.appendChild(commentBody);
     return commentEl;
 }
-// -------------------------------------------------------------
-// WORKS!

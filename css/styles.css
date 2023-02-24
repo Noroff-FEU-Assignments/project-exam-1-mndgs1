@@ -7,6 +7,7 @@
 @import "imports/components/navigation.css";
 
 @import "imports/contact/contact.css";
+@import "imports/components/searchbar.css";
 @import "imports/blogs/blogs.css";
 @import "imports/blogSpecific/blogSpecific.css";
 @import "imports/blogSpecific/comments.css";

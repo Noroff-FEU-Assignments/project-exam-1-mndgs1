@@ -1,3 +1,4 @@
+// Call API function
 export default async function callApi(url, options = {}) {
     let data, error;
 

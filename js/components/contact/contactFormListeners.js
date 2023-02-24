@@ -1,10 +1,11 @@
+import { sendMessage } from "../../api/contact/create.js";
 import { validateInput, addEventListenersForm } from "../../utilities/inputValidation.js";
 import renderMessage from "../common/renderMessage.js";
 
 export default function addContactListeners() {
     const allInputs = document.querySelectorAll("#contact__form input, #contact__form textarea");
+    const form = document.querySelector("#contact__form");
     const submit = document.querySelector(".submit");
-    const contactForm = document.getElementById("contact__form");
 
     // adds event listnerers to form inputs
     allInputs.forEach((input) => {
@@ -15,7 +16,11 @@ export default function addContactListeners() {
     submit.addEventListener("click", (e) => {
         e.preventDefault();
 
-        // validates if all inputs have errors
+        const formEl = form;
+
+        let dataObj = new FormData(formEl);
+
+        // Passes through validation for all inputs
         allInputs.forEach((input) => {
             validateInput(input);
         });
@@ -23,33 +28,15 @@ export default function addContactListeners() {
         const allErrors = document.querySelectorAll(".error");
 
         if (allErrors.length === 0) {
-            const data = {
-                name: null,
-                email: null,
-                subject: null,
-                message: null,
-            };
+            sendMessage(dataObj);
 
             allInputs.forEach((input) => {
-                if (input.id === "name") {
-                    data.name = input.value;
-                }
-                if (input.id === "email") {
-                    data.email = input.value;
-                }
-                if (input.id === "subject") {
-                    data.subject = input.value;
-                }
-                if (input.id === "message") {
-                    data.message = input.value;
-                }
                 input.value = "";
             });
-            renderMessage("Your message was sent!", "success", contactForm);
+
+            renderMessage("Your message was sent!", "success", "#contact__form");
         } else {
-            // allErrors.forEach((error) => {
-            //     renderMessage(error.innerHTML, "success", contactForm);
-            // });
+            // Can add message box with all errors
         }
     });
 }

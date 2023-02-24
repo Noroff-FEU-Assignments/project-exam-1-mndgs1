@@ -1,5 +1,6 @@
-import { GET, BASE_URL } from "./constants.js";
+import { GET } from "./constants.js";
 
+// creates API options for different API calls
 export default function createApiOptions(method = GET, contentType, headers = {}, body) {
     if (contentType) {
         headers["Content-Type"] = contentType;
@@ -15,6 +16,3 @@ export default function createApiOptions(method = GET, contentType, headers = {}
     }
     return options;
 }
-
-// need to get extension out of this function, add body for POST comments
-// do url + extension in post/read.js functions

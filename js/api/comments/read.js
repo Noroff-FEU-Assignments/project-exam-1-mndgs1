@@ -2,6 +2,7 @@ import createApiOptions from "../createApiOptions.js";
 import callApi from "../callApi.js";
 import { GET, APPLICATION_JSON, BASE_URL } from "../constants.js";
 
+// gets 12 comments, most recent up top
 export async function getComments(id, page = 1) {
     const params = { per_page: 12, post: id, page, order: "desc" };
 

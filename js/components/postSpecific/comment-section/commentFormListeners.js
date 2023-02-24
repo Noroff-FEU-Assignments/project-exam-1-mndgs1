@@ -4,7 +4,8 @@ import fetchParams from "../../../utilities/fetchParams.js";
 import renderMessage from "../../common/renderMessage.js";
 import postComments from "./postComments.js";
 
-export default function commentFormListeners(container = "#comment__form") {
+// packages all event listeners
+export default function commentFormListeners() {
     inputsEventListeners();
     submitEventListener();
     moreCommentsEventListener();
@@ -40,14 +41,11 @@ function submitEventListener() {
             allInputs.forEach((input) => {
                 input.value = "";
             });
-            const contactForm = document.getElementById("comment__form");
 
-            renderMessage("Thank you for your comment!", "success", contactForm);
+            renderMessage("Thank you for your comment!", "success", "#comment__form");
             setTimeout(postComments, 500);
         } else {
-            // allErrors.forEach((error) => {
-            //     renderMessage(error.innerHTML, "success", contactForm);
-            // });
+            // can make a message box for errors
         }
     });
 }
@@ -86,8 +84,7 @@ function moreCommentsEventListener() {
 
     moreComments.addEventListener("click", async (e) => {
         if (moreComments.innerHTML === "View All Comments") {
-            // New all coments page?
-            //
+            // can create comments page where you can view all comments
         } else {
             const commentsEl = document.querySelectorAll(".comment");
 

@@ -6,6 +6,7 @@ import postCategories from "./components/categories/categoriesList.js";
 import menuToggle from "./components/common/menuBars.js";
 import postCarousel from "./components/posts/postCarousel.js";
 import addContactListeners from "./components/contact/contactFormListeners.js";
+import searchPosts from "./components/posts/searchBar.js";
 
 function router() {
     const path = window.location.pathname;
@@ -20,6 +21,7 @@ function router() {
         case "/blogs.html":
             postCategories();
             postList();
+            searchPosts();
             return;
         case "/blog.html":
             postComments();

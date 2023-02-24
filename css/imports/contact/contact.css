@@ -21,7 +21,7 @@
     display: none;
 }
 
-.message {
+.success {
     animation: fade-out 1s ease-out 3s forwards;
 }
 

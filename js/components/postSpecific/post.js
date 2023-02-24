@@ -1,19 +1,20 @@
 import fetchParams from "../../utilities/fetchParams.js";
 import addModal from "../../utilities/addImgModal.js";
 import { getPost } from "../../api/posts/read.js";
+import renderMessage from "../common/renderMessage.js";
 
 // fetches post data
 export default async function postDetailed(id = fetchParams(), container = ".blog-container") {
     const { data, error } = await getPost(id);
 
     if (error) {
-        return displayMessage(error, ".blog-container", "error");
+        return renderMessage(error, "error", ".blog-container");
     }
 
     displayPost(data, container);
 }
 
-// displays post elements
+// displays post elements, changes document title
 function displayPost(post, container) {
     const parent = document.querySelector(container);
     parent.innerHTML = "";
@@ -40,6 +41,3 @@ function createPostEl(post) {
     });
     return div;
 }
-
-// -------------------------------------------------------
-// WORKS!

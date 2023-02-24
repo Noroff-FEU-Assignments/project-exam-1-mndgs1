@@ -1,4 +1,4 @@
-import displayMessage from "../common/displayMessage.js";
+import renderMessage from "../common/renderMessage.js";
 import { getCategories } from "../../api/posts/index.js";
 import postList from "../posts/postList.js";
 import postCarousel from "../posts/postCarousel.js";
@@ -9,7 +9,7 @@ export default async function postCategories() {
     const { data, error } = await getCategories();
 
     if (error) {
-        return displayMessage(error, ".categories", "error");
+        return renderMessage(error, "error", ".categories");
     }
     categories = data;
     displayCategories(data);
@@ -18,7 +18,7 @@ export default async function postCategories() {
 // displays category list
 function displayCategories(categories) {
     if (!Array.isArray(categories) || categories.length === 0) {
-        return displayMessage("There are no categories to display", ".categories", "warning");
+        return renderMessage("There are no categories to display", "warning", ".categories");
     }
 
     createCategoryList(categories);
@@ -67,6 +67,8 @@ function addCategoryEventListener(categoryInput) {
     categoryInput.addEventListener("change", (e) => {
         e.preventDefault();
 
+        const searchMessage = document.querySelector(".searchbar__message");
+        searchMessage.innerHTML = "";
         const path = window.location.pathname;
         if (path === "/index.html") {
             postCarousel(categoryInput.id);

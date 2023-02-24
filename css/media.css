@@ -102,6 +102,11 @@
         width: 400px;
         height: 400px;
     }
+
+    .searchbar__container {
+        max-width: 400px;
+        margin: auto;
+    }
     /* ------- carousel ------- */
 
     .carousel {

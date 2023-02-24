@@ -2,7 +2,8 @@ import createApiOptions from "../createApiOptions.js";
 import callApi from "../callApi.js";
 import { BASE_URL, GET, APPLICATION_JSON } from "../constants.js";
 
-export async function getPosts(category = "", page = 1) {
+// get posts from API with different parameters
+export async function getPosts(category = "", page = 1, search) {
     const params = { per_page: 12, page };
 
     if (category === "1") {
@@ -12,6 +13,11 @@ export async function getPosts(category = "", page = 1) {
     if (category) {
         params.categories = category;
     }
+
+    if (search) {
+        params.search = search;
+    }
+
     const options = createApiOptions(GET, APPLICATION_JSON, {});
 
     // Create a new URL object with the base URL
@@ -25,6 +31,7 @@ export async function getPosts(category = "", page = 1) {
     return response;
 }
 
+// gets categories names from API
 export async function getCategories() {
     const options = createApiOptions(GET, APPLICATION_JSON, {});
 
@@ -34,6 +41,7 @@ export async function getCategories() {
     return response;
 }
 
+// gets post by ID from API
 export async function getPost(id) {
     const options = createApiOptions(GET, APPLICATION_JSON);
     const url = `${BASE_URL}posts/${id}`;

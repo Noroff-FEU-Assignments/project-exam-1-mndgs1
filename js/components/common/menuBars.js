@@ -1,3 +1,4 @@
+// adds toggle states for menu bars
 export default function menuBarsEvent() {
     const menuBars = document.querySelector(".bars");
     const menu = document.querySelector(".menu");
@@ -6,6 +7,8 @@ export default function menuBarsEvent() {
         menuToggle([menuBars, menu]);
     });
 }
+
+// toggles between menu states on mobile
 function menuToggle(elementsArray) {
     const loadedEl = document.querySelector(".loaded");
     if (loadedEl) {
