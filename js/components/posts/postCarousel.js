@@ -6,8 +6,10 @@ let slideIndex = 1;
 // posts carousel to the page
 export default async function postCarousel(category = "", container = ".carousel") {
     const { data, error } = await getPosts(category);
+    console.log(data);
 
     if (error) {
+        console.log("fire");
         return renderMessage(error, "error", ".carousel");
     }
     slideIndex = 1;

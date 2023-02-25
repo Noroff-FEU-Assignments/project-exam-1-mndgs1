@@ -14,6 +14,10 @@ function router() {
     menuToggle();
 
     switch (path) {
+        case "/":
+            postCategories();
+            postCarousel();
+            return;
         case "/index.html":
             postCategories();
             postCarousel();
