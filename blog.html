@@ -6,8 +6,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <script src="https://kit.fontawesome.com/57518a1e7d.js" crossorigin="anonymous"></script>
         <link href="css/styles.css" rel="stylesheet" />
+        <link href="css/media.css" rel="stylesheet" />
         <link rel="icon" type="image/svg+xml" href="/images/logo/svg/icon.svg" />
         <title>Blog | Life of Mi</title>
+        <meta name="description" content="" />
         <!-- Hotjar Tracking Code for Life of Mi -->
         <script>
             (function (h, o, t, j, a, r) {
@@ -36,7 +38,7 @@
                         <span class="bar bar3"></span>
                     </div>
                 </div>
-                <nav class="menu not-active">
+                <nav class="menu not-active loaded">
                     <ul class="options">
                         <li class="option"><a href="/index.html">Home</a></li>
                         <li class="option selected"><a href="/blogs.html">Blog</a></li>
@@ -51,6 +53,36 @@
             <div id="modal" class="modal">
                 <img id="modal-image" src="" alt="" />
             </div>
+            <div class="comments">
+                <h2 class="comments-title">Comments</h2>
+                <ul class="comment-list"></ul>
+                <div class="anchor-container comments-anchor">
+                    <a class="more-comments">More Comments &#187; </a>
+                </div>
+                <form id="comment__form">
+                    <div class="input__container">
+                        <label for="name">Full Name*:</label>
+                        <p class="input__suggestion">(Should be more than 5 characters)</p>
+                        <input type="text" id="name" name="name" placeholder="Name" required />
+                        <p class="input__message"></p>
+                    </div>
+                    <div class="input__container">
+                        <label for="email">Email*:</label>
+                        <input type="email" id="email" name="email" placeholder="Email" required />
+                        <p class="input__message"></p>
+                    </div>
+                    <div class="input__container">
+                        <label for="comment">Comment*:</label>
+                        <p class="input__suggestion">(Should be more than 5 characters)</p>
+                        <textarea id="comment" name="comment" placeholder="Your comment..." required></textarea>
+                        <p class="input__message"></p>
+                    </div>
+                    <button type="submit" class="cta submit-comment">Write a Comment</button>
+                </form>
+                <div class="anchor-container">
+                    <a href="/blogs.html">Back to Blog &#187; </a>
+                </div>
+            </div>
         </main>
         <footer>
             <div class="footer__content">
@@ -58,7 +90,6 @@
                 <div class="footer__socials"></div>
             </div>
         </footer>
-        <script src="/js/scripts.js"></script>
-        <script src="/js/blog.js"></script>
+        <script type="module" src="/js/index.js"></script>
     </body>
 </html>
