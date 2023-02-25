@@ -19,7 +19,12 @@ function displayPost(post, container) {
     const parent = document.querySelector(container);
     parent.innerHTML = "";
 
+    // document title and meta description
     document.title = post.title.rendered + "| Life of Mi";
+    const metaDescription = document.querySelector('meta[name="description"]');
+    const originalString = post.excerpt.rendered;
+    const cutString = originalString.substring(originalString.indexOf(">") + 1, originalString.indexOf(".") + 1);
+    metaDescription.content = cutString;
 
     const postEl = createPostEl(post);
     parent.appendChild(postEl);
