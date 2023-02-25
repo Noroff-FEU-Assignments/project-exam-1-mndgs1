@@ -68,7 +68,9 @@ function addCategoryEventListener(categoryInput) {
         e.preventDefault();
 
         const searchMessage = document.querySelector(".searchbar__message");
-        searchMessage.innerHTML = "";
+        if (searchMessage) {
+            searchMessage.innerHTML = "";
+        }
         const path = window.location.pathname;
         if (path === "/index.html") {
             postCarousel(categoryInput.id);

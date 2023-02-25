@@ -27,3 +27,7 @@
 .searchbar__button:hover .searchbar__icon {
     color: var(--orange-color);
 }
+
+.display-none{
+    display: none;
+}
